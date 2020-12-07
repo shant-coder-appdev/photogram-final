@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   # READ
   get("/users", { :controller => "users", :action => "index" })
   get("/users/:the_username", { :controller => "users", :action => "show" })
+  get("/users/:the_username/liked_photos", { :controller => "users", :action => "liked_photos" })
 
   # EDIT PROFILE FORM
   get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })
@@ -77,7 +78,7 @@ Rails.application.routes.draw do
   # Routes for the Comment resource:
 
   # CREATE
-  post("/insert_comment", { :controller => "comments", :action => "create" })
+  get("/insert_comment", { :controller => "comments", :action => "create" })
 
   # READ
   get("/comments", { :controller => "comments", :action => "index" })

@@ -18,6 +18,14 @@ class UsersController < ApplicationController
     render({ :template => "users/show.html.erb" })
   end
 
+  def liked_photos
+    the_username = params.fetch("the_username")
+    user_id = User.where({ :username => the_username }).at(0)
+    @user_id = Like.where({ :id => user_id }).at(0)
+
+    render({ :template => "users/liked_photos.html.erb" })
+  end
+
   def create
     user = User.new
 
