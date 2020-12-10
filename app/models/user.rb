@@ -3,6 +3,7 @@
 # Table name: users
 #
 #  id              :integer          not null, primary key
+#  avatar          :string
 #  comments_count  :integer
 #  email           :string
 #  likes_count     :integer
@@ -22,6 +23,8 @@ class User < ApplicationRecord
     :presence => true,
     :uniqueness => { :case_sensitive => false },
   })
+
+  mount_uploader :avatar, AvatarUploader
 
   def comments
     return Comment.where({ :author_id => self.id })

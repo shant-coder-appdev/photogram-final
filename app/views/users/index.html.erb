@@ -28,17 +28,29 @@
           <%= "No" %>
         <% end %>
       </td>
-      <td>
-        <form action="/insert_follow_request" method="post">
-          <input type="hidden" name="query_recipient_id" value="114">
-          <button>
-            Follow
-          </button>
-        </form>
-      </td>
-      <td>
-        <a href="/users/<%= user.username %>">Show details</a>
-      </td>
-    </tr>
-  <% end %>
+      <% if @current_user != nil %>
+        case user.status
+        when ""
+        <td>
+          <form action="/insert_follow_request" method="post">
+            <input type="hidden" name="query_status" value="pending">
+            <input type="hidden" name="query_recipient_id" value="<%= user.id %>">
+            <input type="hidden" name="query_sender_id" value="<%= @current_user.id %>">
+            <button>
+              Follow
+            </button>
+          </form>
+        </td>
+        when "pending"
+        <td>
+          <a href="/users/<%= user.username %>">Cancel request</a>
+        </td>
+        else
+      <% end %>
+    <% end %>
+    <td>
+      <a href="/users/<%= user.username %>">Show details</a>
+    </td>
+  </tr>
+<% end %>
 </table>

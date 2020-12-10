@@ -20,26 +20,30 @@
   </tr>
   <% @list_of_photos.each do |photo| %>
     <tr>
-      <td>
-        <img src="<%= photo.image %>">
-      </td>
-      <td>
-        <%= photo.caption %>
-      </td>
-      <td>
+      <% the_username = photo.poster.username %>
+      <% if photo.poster.private == false %>
+        <td>
+          <img src="<%= photo.image %>">
+        </td>
         <%= photo.poster.username %>
-      </td>
-      <td>
-        <%= time_ago_in_words(photo.created_at) %>
-      </td>
-      <td>
-        <%= photo.likes_count %>
-      </td>
-      <td>
-        <a href="/photos/<%= photo.id %>">
-          Show details
-        </a>
-      </td>
+        <td>
+          <%= photo.caption %>
+        </td>
+        <td>
+          <%= photo.poster.username %>
+        </td>
+        <td>
+          <%= time_ago_in_words(photo.created_at) %>
+        </td>
+        <td>
+          <%= photo.likes_count %>
+        </td>
+        <td>
+          <a href="/photos/<%= photo.id %>">
+            Show details
+          </a>
+        </td>
+      <% end %>
     </tr>
   <% end %>
 </table>

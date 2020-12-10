@@ -6,6 +6,20 @@
   <dd><%= @user.followers.count %></dd>
   <dt>Following</dt>
   <dd><%= @user.following.count %></dd>
+  <dt>Edit user</dt>
+  <% if @current_user != nil %>
+    <% if @user.username == @current_user.username %>
+      <dd>
+        <form action="/modify_photo/@the_photo.id" method="post" >
+          <label for="browser_image">Image URL</label>
+          <input id="browser_image" type="file" name="query_image" placeholder="Enter a URL for the image..." value="https://robohash.org/eligendiprovidentsed">
+          <label for="browser_caption">Caption</label>
+          <textarea id="browser_caption" name="query_caption" placeholder="Enter a caption for the photo...">Every flight begins with a fall.</textarea>
+          <button>Update User</button>
+        </form>
+      </dd>
+    <% end %>
+  <% end %>
 </dl>
 <nav>
   <ul>
@@ -23,7 +37,7 @@
     </li>
   </ul>
 </nav>
-<h2>Own photos (<%= @user.liked_photos.count %>)</h2>
+<h2>Own photos (<%= @user.own_photos.count %>)</h2>
 <table border="1">
   <tr>
     <th>
@@ -55,10 +69,10 @@
         <%= photo.caption %>
       </td>
       <td>
-        <%= time_ago_in_words(photo.created_at) %>
+        <%= time_ago_in_words(photo.created_at) %> ago
       </td>
       <td>
-        <%= photo.likes_count %>
+        <%= photo.likes.count %>
       </td>
       <td>
         <a href="/photos/<%= photo.id %>">
